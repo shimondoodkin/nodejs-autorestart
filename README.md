@@ -1,10 +1,10 @@
-h1. What is node.js autoexit?
+h1. What is node.js auto restart
 
 p. 
 it is a way to watch all .js files if they have been changed and to restart nodejs
 to allow easy development.
 
-*+How to use nodejs autoexit:+*
+*+How to use nodejs auto restrart:+*
 
 p. 
 copy autoexit.js and nodejs.sh to /var/www/
@@ -25,36 +25,26 @@ p. also you might want to use: try-catch witch will make your appplicaiton not c
 
 bc. 
 ////////example:
-
-
 require.paths.unshift(__dirname); //make local paths accecible
-
 var sys = require('sys'),
    http = require('http');
 http.createServer(function (req, res) {
-
   try
   {
-
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.end('Hello World\n');
-  
   }
   catch(e)
   {
    sys.puts(e.stack);
   }
-  
 }).listen(8124, "127.0.0.1");
 sys.puts('Server running at http://127.0.0.1:8124/');
-
 require('autoexit');
-
 //////////end example
 
 
 p. 
-
 to lunch nodejs you type
 
 bc. 
