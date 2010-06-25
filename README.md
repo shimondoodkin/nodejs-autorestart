@@ -3,7 +3,7 @@
 it is a way to watch all .js files if they have been changed and to restart nodejs
 to allow easy development.
 
-## How to use nodejs auto restrart:
+## How to use nodejs auto restart:
  
 copy autoexit.js and nodejs.sh to /var/www/
 add to your script:
@@ -15,33 +15,33 @@ require.paths.unshift(__dirname); //make local paths accecible
 require('autoexit');
 
 
-## also you might want to use: `try-catch` witch will make your appplicaiton not crush on errors
+### also you might want to use: `try-catch` witch will make your appplicaiton not crush on errors
 
 
 ### example:
 
-require.paths.unshift(__dirname); //make local paths accecible
+    require.paths.unshift(__dirname); //make local paths accecible
 
-var sys = require('sys'),
-   http = require('http');
-http.createServer(function (req, res) {
-
-  try
-  {
-
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-  
-  }
-  catch(e)
-  {
-   sys.puts(e.stack);
-  }
-  
-}).listen(8124, "127.0.0.1");
-sys.puts('Server running at http://127.0.0.1:8124/');
-
-require('autoexit');
+    var sys = require('sys'),
+       http = require('http');
+    http.createServer(function (req, res) {
+    
+      try
+      {
+    
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.end('Hello World\n');
+      
+      }
+      catch(e)
+      {
+       sys.puts(e.stack);
+      }
+      
+    }).listen(8124, "127.0.0.1");
+    sys.puts('Server running at http://127.0.0.1:8124/');
+    
+    require('autoexit');
 
 
 ### to lunch nodejs you type
@@ -64,7 +64,6 @@ stop nodejs
 cd /var/www
 ./nodejs.sh
 
-##
 
 then i start to see application output and errors on the screen
 if i want to stop the server i press Control + C
