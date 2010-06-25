@@ -3,24 +3,22 @@
 it is a way to watch all .js files if they have been changed and to restart nodejs
 to allow easy development.
 
-*How to use nodejs auto restrart:*
+## How to use nodejs auto restrart:
  
 copy autoexit.js and nodejs.sh to /var/www/
 add to your script:
- at top:
- 
+
+### at top: 
 require.paths.unshift(__dirname); //make local paths accecible
 
-and at end:
-  
+### and at end:
 require('autoexit');
 
 
-*also you might want to use: try-catch witch will make your appplicaiton not crush on errors*
+## also you might want to use: `try-catch` witch will make your appplicaiton not crush on errors
 
 
-////////example:
-
+### example:
 
 require.paths.unshift(__dirname); //make local paths accecible
 
@@ -45,31 +43,30 @@ sys.puts('Server running at http://127.0.0.1:8124/');
 
 require('autoexit');
 
-//////////end example
 
-
-to lunch nodejs you type
-
+### to lunch nodejs you type
 cd /var/www
 ./nodejs.sh
 
 to make it work with upstart  
 copy nodejs.conf to /etc/init/
 
-to use upstart you type :
+### to use upstart you type :
 [command] + [init filename without conf extention]
 
 start nodejs 
 stop nodejs
 restrt nodejs
 
-when i start to develop connect to the server with ssh and run:
+### when i start to develop connect to the server with ssh and run:
 
 stop nodejs
 cd /var/www
 ./nodejs.sh
 
-then i start to see errors on the screen
+##
+
+then i start to see application output and errors on the screen
 if i want to stop the server i press Control + C
 and the script stops
 
