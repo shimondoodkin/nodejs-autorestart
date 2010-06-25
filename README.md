@@ -68,7 +68,7 @@ Copy `nodejs.conf` to `/etc/init/``
     stop nodejs
     restrt nodejs
 
-### When i start to develop connect to the server with ssh and run:
+### When i start to develop I connect to the server with ssh and run:
 
     stop nodejs
     cd /var/www
