@@ -29,6 +29,7 @@ Copy `autoexit.js` and `nodejs.sh` to `/var/www/`
     
     var sys = require('sys'),
        http = require('http');
+    
     http.createServer(function (req, res) {
     
       try
