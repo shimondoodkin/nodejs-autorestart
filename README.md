@@ -14,7 +14,7 @@ Copy `autoexit.js` and `nodejs.sh` to `/var/www/`
     require('autoexit');
 
 
-### Also you might want to use: `try-catch` that will make your applicaiton not crush on errors
+### You might want to use: `try-catch` that will make your applicaiton not crush on errors
     try
     {
      //your code
@@ -25,7 +25,7 @@ Copy `autoexit.js` and `nodejs.sh` to `/var/www/`
     }
 
 ### Example:
-    require.paths.unshift(__dirname); //make local paths accecible
+    require.paths.unshift(__dirname); //make local paths accessible
     
     var sys = require('sys'),
        http = require('http');

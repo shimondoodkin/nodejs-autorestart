@@ -1,7 +1,7 @@
 
 ////////example:
 
-require.paths.unshift(__dirname); //make local paths accecible
+require.paths.unshift(__dirname); //make local paths accessible
 
 var sys = require('sys'),
    http = require('http');
@@ -26,4 +26,4 @@ require('autoexit');
 
 
 //////////end example
-// notice the try-catch witch makes your appplicaiton not crush on errors
+// notice the try-catch witch makes your applicaiton not crush on errors
