@@ -5,14 +5,14 @@ to allow easy development.
 
 ## How to use nodejs auto restart:
  
-copy autoexit.js and nodejs.sh to /var/www/
+copy `autoexit.js` and `nodejs.sh` to `/var/www/``
 add to your script:
 
 ### at top: 
-require.paths.unshift(__dirname); //make local paths accecible
+    require.paths.unshift(__dirname); //make local paths accecible
 
 ### and at end:
-require('autoexit');
+    require('autoexit');
 
 
 ### also you might want to use: `try-catch` witch will make your appplicaiton not crush on errors
@@ -21,7 +21,7 @@ require('autoexit');
 ### example:
 
     require.paths.unshift(__dirname); //make local paths accecible
-
+    
     var sys = require('sys'),
        http = require('http');
     http.createServer(function (req, res) {
@@ -44,29 +44,31 @@ require('autoexit');
     require('autoexit');
 
 
-### to lunch nodejs you type
-cd /var/www
-./nodejs.sh
+### to launch nodejs you type
+    cd /var/www
+    ./nodejs.sh
 
 to make it work with upstart  
-copy nodejs.conf to /etc/init/
+copy `nodejs.conf` to `/etc/init/``
 
 ### to use upstart you type :
-[command] + [init filename without conf extention]
 
-start nodejs 
-stop nodejs
-restrt nodejs
+    [command] + [init filename without conf extention]
+
+    start nodejs 
+    stop nodejs
+    restrt nodejs
 
 ### when i start to develop connect to the server with ssh and run:
 
-stop nodejs
-cd /var/www
-./nodejs.sh
+    stop nodejs
+    cd /var/www
+    ./nodejs.sh
 
 
-then i start to see application output and errors on the screen
-if i want to stop the server i press Control + C
-and the script stops
+Then I will start to see application output and errors on the screen
+If I want to stop the server I press `Control + C`
+and the script stops.
 
-modify autoexit.js for your needs to watch other folders and file types
+### what files to watch?
+Modify autoexit.js for your needs to watch other folders and file types
