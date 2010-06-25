@@ -1,6 +1,6 @@
 # What is node.js auto restart
-it is a way to watch all .js files if they have been changed and to restart nodejs
-to allow easy development.
+It is a way to watch all .js files if they have been changed and to restart nodejs.
+It allows easy development and stable production.
 
 ## How to use nodejs auto restart:
 Copy `autoexit.js` and `nodejs.sh` to `/var/www/` 
@@ -14,7 +14,7 @@ Add to your script:
     require('autoexit');
 
 
-### Also you might want to use: `try-catch` witch will make your applicaiton not crush on errors
+### Also you might want to use: `try-catch` that will make your applicaiton not crush on errors
     try
     {
      //your code
@@ -80,3 +80,4 @@ and the script stops.
 
 ### What files to watch?
 Modify autoexit.js for your needs to watch other folders and file types
+
