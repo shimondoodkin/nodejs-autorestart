@@ -1,25 +1,30 @@
-# What is node.js auto restart 
- 
+# What is node.js auto restart
 it is a way to watch all .js files if they have been changed and to restart nodejs
 to allow easy development.
 
 ## How to use nodejs auto restart:
- 
-copy `autoexit.js` and `nodejs.sh` to `/var/www/``
-add to your script:
+Copy `autoexit.js` and `nodejs.sh` to `/var/www/` 
 
-### at top: 
+Add to your script:
+
+### At top: 
     require.paths.unshift(__dirname); //make local paths accecible
 
-### and at end:
+### And at end:
     require('autoexit');
 
 
-### also you might want to use: `try-catch` witch will make your appplicaiton not crush on errors
+### Also you might want to use: `try-catch` witch will make your applicaiton not crush on errors
+    try
+    {
+     //your code
+    }
+    catch(e)
+    {
+     sys.puts(e.stack)
+    }
 
-
-### example:
-
+### Example:
     require.paths.unshift(__dirname); //make local paths accecible
     
     var sys = require('sys'),
@@ -44,14 +49,14 @@ add to your script:
     require('autoexit');
 
 
-### to launch nodejs you type
+### To launch nodejs you type
     cd /var/www
     ./nodejs.sh
 
-to make it work with upstart  
-copy `nodejs.conf` to `/etc/init/``
+To make it work with upstart  
+Copy `nodejs.conf` to `/etc/init/``
 
-### to use upstart you type :
+### To use upstart you type :
 
     [command] + [init filename without conf extention]
 
@@ -59,7 +64,7 @@ copy `nodejs.conf` to `/etc/init/``
     stop nodejs
     restrt nodejs
 
-### when i start to develop connect to the server with ssh and run:
+### When i start to develop connect to the server with ssh and run:
 
     stop nodejs
     cd /var/www
@@ -70,5 +75,5 @@ Then I will start to see application output and errors on the screen
 If I want to stop the server I press `Control + C`
 and the script stops.
 
-### what files to watch?
+### What files to watch?
 Modify autoexit.js for your needs to watch other folders and file types
