@@ -1,0 +1,150 @@
+how to develop with node js on linux:
+
+basic knowledge of linux to run node js.
+ where can you get it? here:
+
+please notice this guide is not tested but it is probably a very very good hint.
+
+i found it a convinient way to work:
+
+now i am developing on windows,
+with vmware, linux with samba and ssh.
+and i use PsPad to edit files and Putty for ssh (i set win window lines scrollback to 20000)
+
+some other notes:
+how to choose a secure password: i use a sentense method, it is like you type a password as a sentense of words without spaces.
+example iamusingdevserver or ilovemywife iambatman
+i have started to use samba on all my servers i find it easier then ftp.
+
+download some virtual pc software like:
+
+vmware's    vmware server - it is free, or vmware workstation if you like.
+sun's       virtual-box - witch is very good and free also
+microsoft's virtual pc - is also free.
+probably there are more virtualisation programs, instead you might want to rent a vps or set it up on your real server. 
+
+make some folder on windows click properties and make its contents compressed.
+
+open your virtual pc software 
+
+setup an ubuntu server on a 10 GB disk virtual machine with 256 mb of memory or even less.
+usualy it does not take more then 64 to run and not more then 120 to boot.
+however on production system it might be good to run it on a computer with 900mb of memory.
+because v8 reserves just for fun 850 mb of memory or virtual memory at start 
+
+set root password:
+
+sudo su
+passwd
+
+
+login as root.
+
+
+install open ssh server:
+
+aptitude install openssh-server
+
+
+install samba:
+
+aptitude install samba
+
+now download Putty  - ssh client
+and connect to server with putty as root.
+
+mouse left click and select text copies the text to clipboard
+mouse right click - pastes the text  
+
+configure samba:
+
+add a user to samba
+smbpasswd -a root
+
+type your password.
+
+nano /etc/samba/smb.conf
+
+add the folowing to the end of the file (create new share): 
+
+with keyboard page down until the end
+copy the folowing add some newlines with enter and right click to paste it.
+
+[root]
+   comment = System Share
+   path = /
+   guest ok = no ; or yes if it is in vmware
+   browseable = yes
+   create mask = 0777
+   directory mask = 0777
+   read only = no
+
+to save and exit from the nano editor you press Control + X 
+... see the shortcut keys at bottom of screen.
+
+
+to restart samba execute:
+
+restart smbd
+
+to use samba windows network files share you type from windows
+\\hostname_or_ipaddress of your server or virtual server.
+
+it might feel at first unfamiular but you can do:
+
+\\mywebsite.com and get the folder in windows explorer
+
+
+go to /var/www and work there or in some other folder.
+
+
+
+to install git:
+aptitude install git-core
+
+
+how to use github:
+http://help.github.com/creating-a-repo/
+http://help.github.com/msysgit-key-setup/
+
+
+to install node.js
+
+go to user home folder:
+cd ~/
+
+http://nodejs.org/#download
+right click on download url and copy url shortcut
+http://nodejs.org/dist/node-v0.1.99.tar.gz
+
+in ssh type:
+wget , and right click, you will have:
+wget http://nodejs.org/dist/node-v0.1.99.tar.gz
+
+to extract the file you type 
+tar -vxf and press tab to use auto complete
+you will have:
+tar -vxf node-v0.1.99.tar.gz 
+
+now enter to the nodejs's folder:
+cd + no+press tab several times
+you will have:
+cd node-v0.1.99
+
+then do like in manual the normal steps of compiling and installing a software from source on linux:
+./configure
+make
+make install
+
+(side note: the default modules folder is at : /usr/local/lib/node )
+
+notice the ./ before configure
+it means to execute a script in the current folder
+to make script executable (if it is not) you can type chmod +x yourfilename
+then you can do ./yourfilename
+
+
+how to use autoexit continued in README file.
+
+
+now you know how to install software , this way you can install mongodb and nginx.
