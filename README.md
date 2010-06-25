@@ -5,12 +5,12 @@ It allows easy development and stable production.
 ## How to use nodejs auto restart:
 Copy `autoexit.js` and `nodejs.sh` to `/var/www/` 
 
-Add to your script:
 
-### At top: 
+
+### Add to your script at top: 
     require.paths.unshift(__dirname); //make local paths accecible
 
-### And at end:
+### And to your script at end:
     require('autoexit');
 
 
