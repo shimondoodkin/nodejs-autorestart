@@ -48,6 +48,9 @@ Add to your script:
     
     require('autoexit');
 
+### Edit nodejs.sh
+Edit `nodejs.sh` to match to your server.js filename.
+
 
 ### To launch nodejs you type
     cd /var/www
