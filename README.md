@@ -8,10 +8,17 @@ Copy `autoexit.js` and `nodejs.sh` to `/var/www/`
 
 
 ### Add to your script at top: 
-    require.paths.unshift(__dirname); //make local paths accecible
+    require.paths.unshift(__dirname); //make local paths accessible
 
 ### And to your script at end:
-    require('autoexit');
+
+    // exit if any js file or template file is changed.
+    // it is ok because this script encapsualated in a batch while(true);
+    // so it runs again after it exits.
+    var autoexit_watch=require('autoexit').watch;
+    autoexit_watch(__dirname,".js");
+    //autoexit_watch(__dirname+"/templates",".html");
+
 
 
 ### You might want to use: `try-catch` that will make your applicaiton not crush on errors
@@ -47,7 +54,14 @@ Copy `autoexit.js` and `nodejs.sh` to `/var/www/`
     }).listen(8124, "127.0.0.1");
     sys.puts('Server running at http://127.0.0.1:8124/');
     
-    require('autoexit');
+    // exit if any js file or template file is changed.
+    // it is ok because this script encapsualated in a batch while(true);
+    // so it runs again after it exits.
+    var autoexit_watch=require('autoexit').watch;
+    autoexit_watch(__dirname,".js");
+    //autoexit_watch(__dirname+"/templates",".html");
+
+
 
 ### Edit nodejs.sh
 Edit `nodejs.sh` to match to your server.js filename.
