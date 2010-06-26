@@ -22,7 +22,17 @@ http.createServer(function (req, res) {
 }).listen(8124, "127.0.0.1");
 sys.puts((new Date).toTimeString()+' Server running at http://127.0.0.1:8124/');
 
-require('autoexit');
+
+// exit if any js file or template file is changed.
+// it is ok because this script encapsualated in a batch while(true);
+// so it runs again after it exits.
+
+
+var autoexit_watch=require('autoexit').watch;
+autoexit_watch(__dirname,".js");
+//autoexit_watch(__dirname+"/templates",".html");
+
+
 
 
 //////////end example

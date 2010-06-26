@@ -1,9 +1,20 @@
 //license: public domain
+// by Shimon Doodkin
 
-//////// begin auto exit on js files change in __dirname  //////////////////////////  
-// run this file  with the folowing shell script one liner command:
-//                      while true; do node jsdatasvc.js; done;
+//example:
+
+// // exit if any js file or template file is changed.
+// // this script encapsualated in a batch while(true); so it runs again after exit.
+// var autoexit_watch=require('deps/nodejs-autorestart/autoexit').watch;
+// autoexit_watch(__dirname,".js");
+// autoexit_watch(__dirname+"/templates",".html");
+
+
+//////// begin - auto exit on js files changed //////////////////////////  
+// run this file  with the kind of the folowing shell script one liner command:
+//                      while true; do node server.js; done;
 //
+
 var fs = require('fs');    // allaws to open files
 var sys = require('sys');  // allows to print errors to command line
 
@@ -12,7 +23,7 @@ var restart_server = function(file){
     process.exit();
 }
 
-function parse_file_list(parse_file_list_dirname,extention) {
+function watch(parse_file_list_dirname,extention) {
  var parse_file_list1 = function(dir, files, extention)
  {
   for (var i=0;i<files.length;i++)
@@ -26,16 +37,30 @@ function parse_file_list(parse_file_list_dirname,extention) {
      function(err,stats)
      {
       //sys.puts('stats returned: '+ file);
-      if (err) return ''; //throw err;
-      if (stats.isDirectory())
-       fs.readdir(file_on_callback,function(err,files){
-        if (err) throw err;
-        parse_file_list1(file_on_callback, files,extention);
-       });
-      else if (stats.isFile()  && file_on_callback.substr(file_on_callback.length-extention.length).toLowerCase()==extention  ) //maybe remove this
+      if (err)
       {
-       eval("f= function(){restart_server('"+file_on_callback+"');};");fs.watchFile(file_on_callback, f); //probably may consume resources , but also tells whitch file
-       //fs.watchFile(file_on_callback, restart_server);                                                   //this one consumes less resiurces
+       // do nothing
+       // sometimes linked files are missing
+       //sys.puts('auto restart - cannot read file1 : '+ file_on_callback);
+      }
+      else
+      {
+       if (stats.isDirectory())
+        fs.readdir(file_on_callback,function(err,files){
+         if (err) 
+         {
+          // do nothing
+          // sometimes linked files are missing
+          //sys.puts('auto restart - cannot read file2 : '+ file_on_callback);
+         }
+         else
+          parse_file_list1(file_on_callback, files,extention);
+        });
+       else if (stats.isFile()  && file_on_callback.substr(file_on_callback.length-extention.length).toLowerCase()==extention  ) //maybe remove this
+       {
+        eval("f= function(){restart_server('"+file_on_callback+"');};");fs.watchFile(file_on_callback, f); //probably may consume resources , but also tells whitch file
+        //fs.watchFile(file_on_callback, restart_server);                                                   //this one consumes less resiurces
+       }
       }
      });
     }
@@ -43,11 +68,20 @@ function parse_file_list(parse_file_list_dirname,extention) {
   }
  };
  // fs.readdir(parse_file_list_dirname,function(err,files){if (err) throw err;parse_file_list1(parse_file_list_dirname, files,extention);}); 
- fs.readdir(parse_file_list_dirname,function(err,files){if (err) throw err;parse_file_list1(parse_file_list_dirname, files,extention);}); 
+ fs.readdir(parse_file_list_dirname,function(err,files)
+ {
+  if (err) 
+  {
+   // do nothing
+   // sometimes linked files are missing
+   //sys.puts('auto restart -cannot read file3: '+ parse_file_list_dirname);
+  }
+  else
+   parse_file_list1(parse_file_list_dirname, files,extention);
+ }); 
 
-}
+} 
+this.watch=watch;
 
-parse_file_list(__dirname,".js");
-parse_file_list(__dirname+"/templates",".html");
 
 ////////  end auto exit //////////////////////////
