@@ -93,6 +93,8 @@ Then I will start to see application output and errors on the screen
 If I want to stop the server I press `Control + C`
 and the script stops.
 
-### What files to watch?
-Modify autoexit.js for your needs to watch other folders and file types
-
+### Nginx?
+Yes I also use Nginx as front.
+To let me in the future to change and integrate different servers seemlessly.
+It is  basicly:  nginx<->nodejs as an upstream.
+also i added php-cgi to nginx to use moadmin.php - mongodb db editor.
