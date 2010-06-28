@@ -55,3 +55,16 @@ to install php
 
 apt-get install php5-cli
 apt-get install php5-cgi
+
+
+to install the script of php of /etc/init.d to all rc0.d folders  do:
+copy the php-fcgi script to /etc/init.d/php-fcgi
+
+chmod +x /etc/init.d/php-fcgi
+update-rc.d php-fcgi defaults
+
+apt-get install php5-dev
+apt-get install php-pear
+pecl install mongo
+#add the extention to php ini, if you on ubuntu and you have phpini settings in folders you can do like this:
+echo extension=mongo.so > /etc/php5/conf.d/mongo.ini

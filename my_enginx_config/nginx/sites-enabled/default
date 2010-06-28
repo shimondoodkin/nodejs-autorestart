@@ -46,7 +46,7 @@ server {
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	#
-	location ~ \.php$ {
+	location ~ ^/php/.*\.php$ {
     	#if ($uri !~ "^/images/") {
     	fastcgi_pass   127.0.0.1:9000;
 		fastcgi_index  index.php;
@@ -55,7 +55,7 @@ server {
 		#}
 	}
 
-	location ~ ^/data {
+	location ~ ^/ {
 		proxy_pass   http://127.0.0.1:8000;
 	}
 	
