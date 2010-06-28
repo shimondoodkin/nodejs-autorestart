@@ -11,11 +11,12 @@ server {
 	access_log  /var/log/nginx/localhost.access.log;
     #access_log off;
 
-	location / {
-		root   /var/www/nginx-default;
-		#root   /var/www/;
-		index  index.html index.php;
-	}
+   
+#	location ~ ^/$ {
+#		root   /var/www/nginx-default;
+#		#root   /var/www/;
+#		index  index.html index.php;
+#	}
 
 #	location /doc {
 #		root   /usr/share;
@@ -44,21 +45,69 @@ server {
 		#proxy_pass   http://127.0.0.1;
 	#}
 
+   # setup below some locations for your website
+ 
+
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	#
-	location ~ ^/php/.*\.php$ {
-    	#if ($uri !~ "^/images/") {
+	
+	location ~ \.php$ {
+    	#if ($uri !~ "^/uploads/") {
     	fastcgi_pass   127.0.0.1:9000;
 		fastcgi_index  index.php;
 		fastcgi_param  SCRIPT_FILENAME  /var/www/nginx-default$fastcgi_script_name;
 		include fastcgi_params;
 		#}
-	}
+		break;
+    }
 
-	location ~ ^/ {
-		proxy_pass   http://127.0.0.1:8000;
-	}
+    # to reload nginx settings type:
+    # nginx -s reload
+    
+    # i prefer this instead fle not exist rout because this should work faster.
+	#location ~ \.(js|css|jpg|png|gif|html)$ {
+	#	root   /var/www/nginx-default;
+	#	break;
+    #}
+
 	
+	# this app called data, you might want several apps.
+    #location /data {
+    #	proxy_pass   http://127.0.0.1:8000;
+    #}
+
+    #location ~ ^/$ {
+	#	root   /var/www/nginx-default;
+	#	index  index.html index.php;
+    #}
+    #location ~ ^/. {        
+	#	root   /var/www/nginx-default;
+	#	index  index.html index.php;
+    #    if (!-f $request_filename) { 
+    #     proxy_pass   http://127.0.0.1:8000; # uncomment this for this port will work for the root / of the website         
+    #    }
+    #}
+
+    #location / {
+	#	root   /var/www/nginx-default;
+	#	index  index.html index.php;
+    #    if (!-f $request_filename) { 
+    #     proxy_pass   http://127.0.0.1:8000; # uncomment this for this port will work for the root / of the website         
+    #    }
+    #}
+
+	location ~ \.(js|css|jpg|png|gif|html)$ {
+		root   /var/www/nginx-default;
+		break;
+    }
+
+    location / {
+		root   /var/www/nginx-default;
+		index  index.html index.php;
+         proxy_pass   http://127.0.0.1:8000; # uncomment this for this port will work for the root / of the website         
+    }
+
+
 	# deny access to .htaccess files, if Apache's document root
 	# concurs with nginx's one
 	#
