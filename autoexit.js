@@ -18,12 +18,15 @@
 var fs = require('fs');    // allaws to open files
 var sys = require('sys');  // allows to print errors to command line
 
-var restart_server = function(file){
+
+function watch(parse_file_list_dirname,extention,callback) {
+
+ var restart_server = function(file){
+    if(callback)callback();
     sys.puts((new Date).toTimeString()+' change discovered, restarting server. the file was: '+file);
     process.exit();
-}
+ }
 
-function watch(parse_file_list_dirname,extention) {
  var parse_file_list1 = function(dir, files, extention)
  {
   for (var i=0;i<files.length;i++)

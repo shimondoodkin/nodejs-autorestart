@@ -16,8 +16,10 @@ Copy `autoexit.js` and `nodejs.sh` to `/var/www/`
     // it is ok because this script encapsualated in a batch while(true);
     // so it runs again after it exits.
     var autoexit_watch=require('autoexit').watch;
-    autoexit_watch(__dirname,".js");
-    //autoexit_watch(__dirname+"/templates",".html");
+    //
+    var on_autoexit=function () { } 
+    autoexit_watch(__dirname,".js", on_autoexit);
+    //autoexit_watch(__dirname+"/templates",".html", on_autoexit);
 
 
 
@@ -58,8 +60,11 @@ Copy `autoexit.js` and `nodejs.sh` to `/var/www/`
     // it is ok because this script encapsualated in a batch while(true);
     // so it runs again after it exits.
     var autoexit_watch=require('autoexit').watch;
-    autoexit_watch(__dirname,".js");
-    //autoexit_watch(__dirname+"/templates",".html");
+    //
+    var on_autoexit=function () { sys.puts('bye bye'); } 
+    autoexit_watch(__dirname,".js", on_autoexit);
+    //autoexit_watch(__dirname+"/templates",".html", on_autoexit);
+
 
 
 
