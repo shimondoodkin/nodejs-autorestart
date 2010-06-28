@@ -3,9 +3,8 @@ It is a way to watch all .js files if they have been changed and to restart node
 It allows easy development and stable production.
 
 ## How to use nodejs auto restart:
-Copy `autoexit.js` and `nodejs.sh` to `/var/www/` 
-
-
+Copy `nodejs.sh` and `autoexit.js` to root folder of your application 
+for example to `/var/www`. Copying of `autoexit.js` is optional and it can be included from deps folder
 
 ### Add to your script at top: 
     require.paths.unshift(__dirname); //make local paths accessible
@@ -76,8 +75,9 @@ Edit `nodejs.sh` to match to your server.js filename.
     cd /var/www
     ./nodejs.sh
 
-To make it work with upstart  
+### To make it work with upstart  - run on boot
 Copy `nodejs.conf` to `/etc/init/``
+and modify it to point to nodejs.sh
 
 ### To use upstart you type :
 
