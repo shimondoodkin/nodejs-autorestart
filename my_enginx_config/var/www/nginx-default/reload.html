@@ -69,13 +69,15 @@ if(address.charAt(0)!='/') address='/'+address;
 
 var hostname=location.href.substring(0,location.href.indexOf("/",location.href.indexOf("/")+2));
 
+var lastdata="";
 function reload1()
 {
- 
  getfile(hostname+address,function (data)
   {
-   document.getElementById('pagedata').innerHTML=data;
-   document.getElementById('reldate').innerHTML= hostname+address+' @ '+(new Date).toLocaleString();
+   if(lastdata!=data)
+    document.getElementById('pagedata').innerHTML=data;
+    document.getElementById('reldate').value= hostname+address+' @ '+(new Date).toLocaleString();
+   lastdata=data;
   }
  );
  //myframe.location.reload(false);
@@ -87,7 +89,7 @@ t=setInterval("reload1();",500);
 </script>
 </head>
 <body bgcolor="white" text="black">
-<div id="reldate"></div>
+<input type=text style="width:98%;border:0px transparent none;" id="reldate"/>
 <div id="pagedata"></div>
 <!-- <iframe src="/" width="98%" height="98%" id="myframe"  name="myframe" ></iframe> -->
 </body>
