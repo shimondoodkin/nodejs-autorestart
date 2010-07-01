@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Reload</title>
+<script type="text/javascript" language="javascript">
+
+
+// usage:
+// http://localhost/reload.html?/mainpage/list.jsp
+
+
+
+function createXMLHttp() {
+
+    if (typeof XMLHttpRequest != "undefined") {
+        return new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+      var aVersions = [ "MSXML2.XMLHttp.5.0",
+        "MSXML2.XMLHttp.4.0","MSXML2.XMLHttp.3.0",
+        "MSXML2.XMLHttp","Microsoft.XMLHttp"
+      ];
+
+      for (var i = 0; i < aVersions.length; i++) {
+        try {
+            var oXmlHttp = new ActiveXObject(aVersions[i]);
+            return oXmlHttp;
+        } catch (oError) {
+            //Do nothing
+        }
+      }
+    }
+    throw new Error("XMLHttp object could be created.");
+}
+
+
+
+function getfile(file,acallback)
+{
+ try
+ {  
+  async=false;
+    var xmlHttp = createXMLHttp();
+    if (!xmlHttp) return;
+    xmlHttp.open('get', file, async);
+    var get_file_text="";
+    var f = function()
+    {
+
+     //alert(xmlHttp.responseText);
+     if (xmlHttp.readyState == 4 /*&& xmlHttp.status == 200 */ &&
+         xmlHttp.responseText) {
+
+       // alert(xmlHttp.responseText);
+         acallback(xmlHttp.responseText);
+        }
+    }
+    if (async || document.all)
+        xmlHttp.onreadystatechange = f;
+    xmlHttp.send(null);
+    if (!async && !document.all)
+        f();
+    } catch (e) {acallback('xml http get file error '+e.message)}
+}
+
+
+var address=location.href.indexOf("?")<0?'':location.href.substring(location.href.indexOf("?")+1,location.href.length);
+
+if(address.charAt(0)!='/') address='/'+address;
+
+var hostname=location.href.substring(0,location.href.indexOf("/",location.href.indexOf("/")+2));
+
+function reload1()
+{
+ 
+ getfile(hostname+address,function (data)
+  {
+   document.getElementById('pagedata').innerHTML=data;
+   document.getElementById('reldate').innerHTML= hostname+address+' @ '+(new Date).toLocaleString();
+  }
+ );
+ //myframe.location.reload(false);
+}
+
+if(t)clearTimeout(t);
+var t;
+t=setInterval("reload1();",500);
+</script>
+</head>
+<body bgcolor="white" text="black">
+<div id="reldate"></div>
+<div id="pagedata"></div>
+<!-- <iframe src="/" width="98%" height="98%" id="myframe"  name="myframe" ></iframe> -->
+</body>
+</html>
