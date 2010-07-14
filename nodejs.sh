@@ -18,7 +18,7 @@ while true;
   if [ "$exit_value" != "0" ]; then 
    sleep 5;
   else 
-   sleep 0;
+   sleep 0.5;
   fi ;
 
  done;
