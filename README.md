@@ -99,7 +99,7 @@ If I want to stop the server I press `Control + C`
 and the script stops.
 
 ### Nginx?
-Yes I also use Nginx as front.
-To let me in the future to change and integrate different servers seemlessly.
+Yes I also use Nginx as front. (but it is not required). I use it
+to let me in the future to change and integrate different servers seemlessly.
 It is  basicly:  nginx<->nodejs as an upstream.
 also i added php-cgi to nginx to use moadmin.php - mongodb db editor.

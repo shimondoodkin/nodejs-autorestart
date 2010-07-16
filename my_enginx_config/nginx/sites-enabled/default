@@ -3,6 +3,7 @@
 #	...
 # }
 # statements for each of your virtual hosts
+keepalive_requests 1000;
 
 server {
 	listen   80 default;
@@ -47,6 +48,44 @@ server {
 
    # setup below some locations for your website
  
+   #some paths need to be piped directry like paths with rewrite,
+   # and paths you want node to serve when  nginx is the default server for it.
+   location ~ ^/lib/ 
+   {
+#         auth_basic "Hello, please login";
+ #        auth_basic_user_file /var/www/htpasswd;
+
+         proxy_pass   http://127.0.0.1:8000; # uncomment this for this port will work for the root / of the website
+         break;         
+    } 
+
+   location ~ ^/css/
+   {
+    #     auth_basic "Hello, please login";
+     #    auth_basic_user_file /var/www/htpasswd;
+
+         proxy_pass   http://127.0.0.1:8000;
+         break;         
+    } 
+    
+   location ~ ^/js/ # i server the css and js and images cached from memory from node js so mine is probably faster then nginx's
+   {
+  #       auth_basic "Hello, please login";
+   #      auth_basic_user_file /var/www/htpasswd;
+
+         proxy_pass   http://127.0.0.1:8000; 
+         break;         
+    } 
+    
+   location ~ ^/img/
+   {
+#         auth_basic "Hello, please login";
+ #        auth_basic_user_file /var/www/htpasswd;
+
+         proxy_pass   http://127.0.0.1:8000; 
+         break;         
+   } 
+    
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	#
