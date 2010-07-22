@@ -99,6 +99,7 @@ Upstart is originated in Ubuntu linux. if your linux does not have upstart. An o
 Then I will start to see application output and errors on the screen
 If I want to stop the server I press `Control + C`
 and the script stops.
+note: the output will not bet visible if logging is configured in node.sh. the output will go to log.
 
 ### Nginx?
 Yes I also use Nginx as front. (but it is not required). I use it
