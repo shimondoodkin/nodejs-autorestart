@@ -8,8 +8,8 @@ while true;
   script_directory=`dirname "$0"`;
   cd $script_directory;
   
-  touch /var/log/nodejs.log
-  chmod 777 /var/log/nodejs.log
+  #touch /var/log/nodejs.log
+  #chmod 777 /var/log/nodejs.log
   #
   # echo "bla" > file.txt # replaces file
   # echo "bla" >> file.txt # appends to file
