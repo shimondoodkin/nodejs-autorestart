@@ -10,7 +10,11 @@ while true;
   
   touch /var/log/nodejs.log
   chmod 777 /var/log/nodejs.log
-  /usr/local/bin/node server.js  > /var/log/nodejs.log 2>&1;
+  #
+  # echo "bla" > file.txt # replaces file
+  # echo "bla" >> file.txt # appends to file
+  #
+  /usr/local/bin/node server.js $* > /var/log/nodejs.log 2>&1;
 
   exit_value="$?" ;
   echo stopping $(date);

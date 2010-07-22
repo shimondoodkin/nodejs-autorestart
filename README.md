@@ -103,3 +103,10 @@ Yes I also use Nginx as front. (but it is not required). I use it
 to let me in the future to change and integrate different servers seemlessly.
 It is  basicly:  nginx<->nodejs as an upstream.
 also i added php-cgi to nginx to use moadmin.php - mongodb db editor.
+
+### Multi Process
+you can put nginx or haproxy as a front and create nodejs1.sh, nodejs2.sh,
+nodejs3.sh, nodejs4.sh, and matching .conf files for the upstart.
+Also you can have port as an argument to your server.js.
+To achive best performance. it was found by testing 
+that the number of processors should much the number of cores not more not lest. 

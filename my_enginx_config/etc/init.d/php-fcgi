@@ -1,4 +1,16 @@
 #!/bin/bash
+
+#########################
+#
+# to install this script first copy it to /etc/init.d 
+# then from /etc/init.d folder run 
+#
+# update-rc.d php-fcgi defaults
+#
+# this command will creata all the /etc/rc1.d .. /etc/rc5.d symbolic links
+#           
+###########################
+
 BIND=127.0.0.1:9000
 USER=www-data
 #children was 15
