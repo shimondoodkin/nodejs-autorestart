@@ -2,6 +2,9 @@
 It is a way to watch all .js files if they have been changed and to restart nodejs.
 It allows easy development and stable production.
 
+### the idea behind the architecture 
+the idea is to add an extra level of fail-safety by using a stable system shell script to restart node instead of node itself.
+
 ## How to use nodejs auto restart:
 Copy `nodejs.sh` and `autoexit.js` to root folder of your application 
 for example to `/var/www`. Copying of `autoexit.js` is optional and it can be included from deps folder
@@ -126,6 +129,4 @@ and make port as an argument to your server.js.
 
 To achive best performance. it was found by testing (during development of twisted and nginx) that the number of processors should much the number of cores not more not lest. 
    
-### the idea behind the architecture 
-the idea is to add an extra level of fail-safety by using a stable system shell script to restart node instead of node itself.
 
