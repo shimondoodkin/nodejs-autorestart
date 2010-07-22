@@ -102,7 +102,9 @@ and the script stops.
 Yes I also use Nginx as front. (but it is not required). I use it
 to let me in the future to change and integrate different servers seemlessly.
 It is  basicly:  nginx<->nodejs as an upstream.
-also i added php-cgi to nginx to use moadmin.php - mongodb db editor.
+also i have added php-cgi to nginx to use moadmin.php - mongodb db editor.
+also i've added a log.php , log file viewer so don't even need ssh.
+
 
 ### Multi Process
 you can put nginx or haproxy as a front and create several .conf files for the upstart.
