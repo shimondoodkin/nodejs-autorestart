@@ -75,8 +75,8 @@ Edit `nodejs.sh` to match to your server.js filename.
     cd /var/www
     ./nodejs.sh
 
-### To make it work with upstart  - run on boot
-Copy `nodejs.conf` to `/etc/init/``
+### To make it work with upstart  - make it run on boot
+Copy `nodejs.conf` to `/etc/init/`
 and modify it to point to nodejs.sh
 
 ### To use upstart you type :
