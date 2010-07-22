@@ -105,8 +105,23 @@ It is  basicly:  nginx<->nodejs as an upstream.
 also i added php-cgi to nginx to use moadmin.php - mongodb db editor.
 
 ### Multi Process
-you can put nginx or haproxy as a front and create nodejs1.sh, nodejs2.sh,
-nodejs3.sh, nodejs4.sh, and matching .conf files for the upstart.
-Also you can have port as an argument to your server.js.
-To achive best performance. it was found by testing 
-that the number of processors should much the number of cores not more not lest. 
+you can put nginx or haproxy as a front and create several .conf files for the upstart.
+
+in each you modify the execution line to contain port number ex.:
+in the nodejs1.conf
+    exec sudo -u www-data /bin/bash /var/www/nodejs-mongodb-app/nodejs.sh 8001
+in the nodejs2.conf
+    exec sudo -u www-data /bin/bash /var/www/nodejs-mongodb-app/nodejs.sh 8002
+
+and make port as an argument to your server.js.
+    //http.createServer(server_handler_function).listen(process.argv[2]||8001);
+    //see http://nodejs.org/api.html#process-argv-58
+    //process.argv.forEach(function (val, index, array) {
+    //  console.log(index + ': ' + val);
+    //});
+
+To achive best performance. it was found by testing (during development of twisted and nginx) that the number of processors should much the number of cores not more not lest. 
+   
+### the idea behind the architecture 
+the idea is to add an extra level of fail-safety by using a stable system shell script to restart node instead of node itself.
+
