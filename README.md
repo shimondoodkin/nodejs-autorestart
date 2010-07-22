@@ -79,6 +79,8 @@ Edit `nodejs.sh` to match to your server.js filename.
 Copy `nodejs.conf` to `/etc/init/`
 and modify it to point to nodejs.sh
 
+Upstart is originated in Ubuntu linux. if your linux does not have upstart. An option for you migh be to install upstart.
+
 ### To use upstart you type :
 
     [command] + [init filename without conf extention]
