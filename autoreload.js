@@ -1,15 +1,22 @@
 var path = require('path');
 var fs = require('fs');
 var loadmoduletimer={};
+var 
+// note: there is an upcomming version of node 
+// with auto reload modules probably it will be integrated in the near future.
+//
+// also every time you reload a module it does not free the memory of the reviews module.
+// it means that reloading modules sutes fine for development,
+// but do not relay on havy use of it for production.
 
-function loadlater( filename , callback )
+function loadlater( filename , callback  )
 {
  return setTimeout(function ()
  {
   console.log('will load file: '+filename);
   fs.readFile(filename, function (err, content)
   {
-   if (err) throw err;
+   if (err) throw err; // need to add better error handling
    try
    {
     var dirname = path.dirname(filename);
@@ -25,10 +32,10 @@ function loadlater( filename , callback )
    }
    catch(err)
    {
-    if (err) throw err;
+    if (err) throw err; // need to add better error handling
    }
   });
- }, 500);
+ }, 500); // sometimes i had a situation when the watchFile callback called while uploading the file and resulted in error. 
 }
 
 function watch(filename,callback)

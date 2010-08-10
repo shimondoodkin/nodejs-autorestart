@@ -19,7 +19,7 @@ http.createServer(function (req, res) {
    sys.puts(e.stack);
   }
   
-}).listen(8124, "127.0.0.1");
+}).listen(8124);
 sys.puts((new Date).toTimeString()+' Server running at http://127.0.0.1:8124/');
 
 

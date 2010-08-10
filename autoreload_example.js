@@ -8,6 +8,6 @@ autoreload.watchrel('mymodule.js', function (newmodule){ mymodule=newmodule; });
 http.createServer(function (request, response) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
   response.end(mymodule.time() + '\n');
-}).listen(9101);
+}).listen(8124);
 
-console.log('Server running at http://127.0.0.1:9101/');
+console.log('Server running at http://127.0.0.1:8124/');
