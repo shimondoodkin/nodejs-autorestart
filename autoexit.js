@@ -21,13 +21,19 @@ this.restarted=false;
 var that=this;
 
 function watch(parse_file_list_dirname,extention,callback) {
-
- var restart_server = function(file){
+ var restart_server = function(file)
+ {
     if(that.restarted) return;
     that.restarted=true;
-    if(callback)callback();
-    sys.puts((new Date).toTimeString()+' change discovered, restarting server. the file was: '+file);
-    process.exit();
+    var  ignore=false;
+    var callbackresult=false;;
+    if(callback)callbackresult=callback();
+    ignore=(!callbackresult);
+    if(!ignore)
+    { 
+     sys.puts((new Date).toTimeString()+' change discovered, restarting server. the file was: '+file);
+     process.exit();
+    }
  }
 
  var parse_file_list1 = function(dir, files, extention)
@@ -64,7 +70,7 @@ function watch(parse_file_list_dirname,extention,callback) {
         });
        else if (stats.isFile()  && file_on_callback.substr(file_on_callback.length-extention.length).toLowerCase()==extention  ) //maybe remove this
        {
-        eval("f= function(){restart_server('"+file_on_callback+"');};");fs.watchFile(file_on_callback, f); //probably may consume resources , but also tells whitch file
+        fs.watchFile(file_on_callback, function(){restart_server(file_on_callback);} ); //probably may consume resources , but also tells whitch file
         //fs.watchFile(file_on_callback, restart_server);                                                   //this one consumes less resiurces
        }
       }
