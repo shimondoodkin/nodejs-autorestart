@@ -18,7 +18,7 @@ var sys = require('sys'),
    http = require('http');
    
    
-   mymodule.name="Shimon Doodkin";
+   mymodule.name="Shimon";
    
 http.createServer(function (req, res) {
 

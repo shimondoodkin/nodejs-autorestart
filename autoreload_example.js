@@ -9,7 +9,13 @@ autoreload.watchrel('mymodule_example.js', function (newmodule){
    mymodule=newmodule;
    //mymodule.moreinit(); // while this not finished you may get errors, because of not whell initilized your module.
 });
+
+//autoreload.watchrel('mymodule_example.js', function (newmodule){ mymodule=newmodule; });
 //autoreload.watch(mymodule.filename, function (newmodule){ mymodule=newmodule; }); // might not work if when started the module has errors or filename exports is missing  
+
+
+mymodule.name="Shimon";
+
 
 http.createServer(function (request, response) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
