@@ -20,6 +20,10 @@ mymodule.name="Shimon";
 http.createServer(function (request, response) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
   response.end(mymodule.time() + '\n');
+
+  //to do, main module reloadable instead of above you might use: 
+  //mymodule.handlerequest(req,res); 
+   
 }).listen(8124);
 
 console.log('Server running at http://127.0.0.1:8124/');
