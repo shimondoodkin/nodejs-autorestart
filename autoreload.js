@@ -1,7 +1,14 @@
+//
+// node.js auto reload module
+//         by Shimon Doodkin.
+// license: 2 close BSD.
+//
+
 var path = require('path');
 var fs = require('fs');
 var loadmoduletimer={};
-var 
+var trackedfiles={}; exports.trackedfiles=trackedfiles;
+
 // note: there is an upcomming version of node 
 // with auto reload modules probably it will be integrated in the near future.
 //
@@ -9,11 +16,13 @@ var
 // it means that reloading modules sutes fine for development,
 // but do not relay on havy use of it for production.
 
-function loadlater( filename , callback  )
+function loadlater( filename , callback )
 {
+ console.log((new Date).toString()+' will load file: '+filename);
+ 
  return setTimeout(function ()
  {
-  console.log('will load file: '+filename);
+  console.log((new Date).toString()+' loading file: '+filename);
   fs.readFile(filename, function (err, content)
   {
    if (err) throw err; // need to add better error handling
@@ -40,10 +49,14 @@ function loadlater( filename , callback  )
 
 function watch(filename,callback)
 {
+ trackedfiles[filename]=true;
  fs.watchFile(filename, function ()
  {
   if(loadmoduletimer[filename])
+  {
+   console.log((new Date).toString()+'timeout cleaned - will load file: '+filename);
    clearTimeout(loadmoduletimer[filename]);
+  }
   loadmoduletimer[filename] = 
   loadlater( filename ,callback);
  });

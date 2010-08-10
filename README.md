@@ -16,7 +16,7 @@ for example to `/var/www`. Copying of `autoexit.js` is optional and it can be in
     // so it runs again after it exits.
     var autoexit_watch=require('autoexit').watch;
     //
-    var on_autoexit=function (filename) { } // if it returns true it means to ignore exit this time;  
+    var on_autoexit=function (filename) { } // if it returns false it means to ignore exit this time;  
     autoexit_watch(__dirname,".js", on_autoexit);
     //autoexit_watch(__dirname+"/templates",".html", on_autoexit);
 

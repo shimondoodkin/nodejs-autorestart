@@ -21,19 +21,21 @@ this.restarted=false;
 var that=this;
 
 function watch(parse_file_list_dirname,extention,callback) {
- var restart_server = function(file)
+ var restart_server = function(filename)
  {
     if(that.restarted) return;
     that.restarted=true;
     var  ignore=false;
-    var callbackresult=false;;
-    if(callback)callbackresult=callback();
-    ignore=(!callbackresult);
+    var callbackresult=true;;
+    if(callback)callbackresult=callback(filename);
+    ignore=(callbackresult===false);
     if(!ignore)
     { 
-     sys.puts((new Date).toTimeString()+' change discovered, restarting server. the file was: '+file);
+     sys.puts((new Date).toTimeString()+' change discovered, restarting server. the file was: '+filename);
      process.exit();
     }
+    else
+     that.restarted=false;
  }
 
  var parse_file_list1 = function(dir, files, extention)

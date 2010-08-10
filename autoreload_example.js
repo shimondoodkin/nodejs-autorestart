@@ -1,9 +1,9 @@
 var http = require('http');
 var autoreload= require('./autoreload');
-var mymodule= require('./mymodule');
+var mymodule= require('./mymodule_example');
 
-autoreload.watchrel('mymodule.js', function (newmodule){ mymodule=newmodule; });
-//autoreload.watch(mymodule.filename, function (newmodule){ mymodule=newmodule; }); // might not work if when started the module has errors or filename export is missing  
+autoreload.watchrel('mymodule_example.js', function (newmodule){ mymodule=newmodule; });
+//autoreload.watch(mymodule.filename, function (newmodule){ mymodule=newmodule; }); // might not work if when started the module has errors or filename exports is missing  
 
 http.createServer(function (request, response) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
