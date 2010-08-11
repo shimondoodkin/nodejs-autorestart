@@ -8,7 +8,7 @@ var path = require('path');
 var fs = require('fs');
 var loadmoduletimer={};
 var trackedfiles={}; exports.trackedfiles=trackedfiles;
-
+this.path=__dirname;
 // note: there is an upcomming version of node 
 // with auto reload modules probably it will be integrated in the near future.
 //
@@ -41,16 +41,38 @@ function loadlater( filename , callback )
    }
    catch(err)
    {
-    if (err) throw err; // need to add better error handling
+    if (err) 
+    {
+     console.log(err.message);
+     console.log(err.stack);
+    }
+    //if (err) throw err; // need to add better error handling
    }
   });
  }, 500); // sometimes i had a situation when the watchFile callback called while uploading the file and resulted in error. 
-}
+} exports.loadlater=loadlater;
 
-function watch(filename,callback)
+
+function watch()
 {
+ var watchfilename,filename,callback;
+ if(arguments.length==3)
+ {
+  watchfilename=arguments[0];
+  filename=arguments[1];
+  callback=arguments[2];
+ }
+ else
+ {
+  watchfilename=arguments[0];
+  filename=arguments[0];
+  callback=arguments[1];
+ }
+ if(typeof watchfilename=='string') watchfilename=[watchfilename];
+ 
+ console.log((new Date).toString()+' watch reaload file: '+filename);
  trackedfiles[filename]=true;
- fs.watchFile(filename, function ()
+ var functionload=function()
  {
   if(loadmoduletimer[filename])
   {
@@ -59,11 +81,73 @@ function watch(filename,callback)
   }
   loadmoduletimer[filename] = 
   loadlater( filename ,callback);
- });
+ }; 
+ for(var i=0;i<watchfilename.length;i++)
+  fs.watchFile(watchfilename[i], functionload);
 };exports.watch=watch;
 
-function watchrel(filename,callback)
+function watchrel()
 {
- watch(__dirname+'/'+filename,callback);
+ var watchfilename,filename,callback;
+ if(arguments.length==3)
+ {
+  watchfilename=arguments[0];
+  filename=arguments[1];
+  callback=arguments[2];
+ }
+ else
+ {
+  watchfilename=arguments[0];
+  filename=arguments[0];
+  callback=arguments[1];
+ }
+ for(var i=0;i<watchfilename.length;i++)
+  watchfilename[i]=this.path+'/'+watchfilename[i]; 
+ watch(watchfilename,filename,callback);
 }; 
 exports.watchrel=watchrel;
+
+
+
+function calllater( filename , callback )
+{
+ console.log((new Date).toString()+' will call file: '+filename);
+ return setTimeout(function ()
+ {
+  console.log((new Date).toString()+' calling file: '+filename);
+  callback(filename);
+ }, 500); // sometimes i had a situation when the watchFile callback called while uploading the file and resulted in error. 
+} exports.calllater=calllater;
+
+function watchonly()
+{
+ var watchfilename,filename,callback;
+ if(arguments.length==3)
+ {
+  watchfilename=arguments[0];
+  filename=arguments[1];
+  callback=arguments[2];
+ }
+ else
+ {
+  watchfilename=arguments[0];
+  filename=arguments[0];
+  callback=arguments[1];
+ }
+ if(typeof watchfilename=='string') watchfilename=[watchfilename];
+
+ console.log((new Date).toString()+' watch only file: '+filename);
+ trackedfiles[filename]=true;
+ var callfunction=function ()
+ {
+  if(loadmoduletimer[filename])
+  {
+   console.log((new Date).toString()+'timeout cleaned - will load file: '+filename);
+   clearTimeout(loadmoduletimer[filename]);
+  }
+  loadmoduletimer[filename] = 
+  calllater( filename ,callback);
+ };
+ for(var i=0;i<watchfilename.length;i++)
+  fs.watchFile(watchfilename[i], callfunction);
+};exports.watchonly=watchonly;
