@@ -44,13 +44,13 @@ for example to `/var/www`. Copying of `autoexit.js` is optional and it can be in
 
 Also after serving one sucsessful request (application is fully loaded) I add an on error error handler:
 
- if(!app_loaded)
-   {
-    process.on('uncaughtException', function (err) {
-      console.log('Caught exception: ' + err.stack);
-    });
-    app_loaded=true;
-   }
+    if(!app_loaded)
+    {
+     process.on('uncaughtException', function (err) {
+       console.log('Caught exception: ' + err.stack);
+     });
+     app_loaded=true;
+    }
 
 As i like it, I want it to crash on load errors and exit the application but not on application errors.
 
