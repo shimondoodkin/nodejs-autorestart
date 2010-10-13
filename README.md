@@ -9,7 +9,8 @@ It allows easy development and stable production.
  - A description of how to make your program crash proof from javascript errors. (segfaults still crash)
  - Auto reload a module:
    makes sense for fast development of slow loading app,
-   "http://github.com/shimondoodkin/node-hot-reload":http://github.com/shimondoodkin/node-hot-reload.
+
+"http://github.com/shimondoodkin/node-hot-reload":http://github.com/shimondoodkin/node-hot-reload.
 
 ## How to use nodejs auto restart:
 Copy `nodejs.sh` and `autoexit.js` to root folder of your application 
