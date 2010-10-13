@@ -1,6 +1,13 @@
 # What is node.js auto restart
-It is a way to watch all .js files if they have been changed and to restart nodejs.
+It is a set of examples and a module with the problems solved simply.
 It allows easy development and stable production.
+
+ - Run on boot:
+   To make your program run automaticaly on boot with Upsrart(you need to configure a .sh file and a .conf file)
+ - Auto restart:
+   autoexit module to watch all .js files if they have been changed and to restart nodejs. 
+ - A description of how to make your program crash proof from javascript errors. (segfaults still crash)
+
 
 ## How to use nodejs auto restart:
 Copy `nodejs.sh` and `autoexit.js` to root folder of your application 
@@ -22,45 +29,65 @@ for example to `/var/www`. Copying of `autoexit.js` is optional and it can be in
 
 
 
-### You might want to use: `try-catch` that will make your applicaiton not crush on errors
+### You might want to use: `try-catch` that will make your applicaiton not crash on errors
     try
     {
      //your code
     }
     catch(e)
     {
-     sys.puts(e.stack)
+     console.log(e.stack)
     }
+
+Also after serving one sucsessful request (application is fully loaded) I add an on error error handler:
+
+ if(!app_loaded)
+   {
+    process.on('uncaughtException', function (err) {
+      console.log('Caught exception: ' + err.stack);
+    });
+    app_loaded=true;
+   }
+
+As i like it, I want it to crash on load errors and exit the application but not on application errors.
 
 ### Example:
     require.paths.unshift(__dirname); //make local paths accessible
     
-    var sys = require('sys'),
-       http = require('http');
-    
+    var http = require('http');
+    var app_loaded=false;
+
     http.createServer(function (req, res) {
-    
-      try
+
+      if(!app_loaded)
       {
-    
+       process.on('uncaughtException', function (err) {
+       console.log('Caught exception: ' + err.stack);
+       });
+       app_loaded=true;
+      }
+
+      try
+      {    
+
       res.writeHead(200, {'Content-Type': 'text/plain'});
       res.end('Hello World\n');
       
       }
       catch(e)
       {
-       sys.puts(e.stack);
+       console.log(e.stack);
       }
       
-    }).listen(8124, "127.0.0.1");
-    sys.puts('Server running at http://127.0.0.1:8124/');
+    }).listen(8124);
+    console.log('Server running at http://127.0.0.1:8124/');
     
     // exit if any js file or template file is changed.
     // it is ok because this script encapsualated in a batch while(true);
     // so it runs again after it exits.
     var autoexit_watch=require('autoexit').watch;
     //
-    var on_autoexit=function () { sys.puts('bye bye'); } 
+    var on_autoexit=function () { console.log('bye bye'); } 
     autoexit_watch(__dirname,".js", on_autoexit);
     //autoexit_watch(__dirname+"/templates",".html", on_autoexit);
 
@@ -105,7 +132,7 @@ note: the output will not bet visible if logging is configured in node.sh. the o
 Yes I also use Nginx as front. (but it is not required). I use it
 to let me in the future to change and integrate different servers seemlessly.
 It is  basicly:  nginx<->nodejs as an upstream.
-also i have added php-cgi to nginx to use moadmin.php - mongodb db editor.
+also i have added php-cgi to nginx to use +Rock mongo+ - a mongodb db editor.
 also i've added a log.php , log file viewer so don't even need ssh.
 
 
