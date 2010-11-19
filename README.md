@@ -13,8 +13,8 @@ It allows easy development and stable production.
 "http://github.com/shimondoodkin/node-hot-reload":http://github.com/shimondoodkin/node-hot-reload.
 
 ## How to use nodejs auto restart:
-Copy `nodejs.sh` and `autoexit.js` to root folder of your application 
-for example to `/var/www`. Copying of `autoexit.js` is optional and it can be included from deps folder
+Copy `start.sh` and `autorestart.js` to root folder of your application 
+for example to `/var/www`. Copying of `autorestart.js` is optional and it can be included from deps folder
 
 ### Add to your script at top: 
     require.paths.unshift(__dirname); //make local paths accessible
@@ -24,7 +24,7 @@ for example to `/var/www`. Copying of `autoexit.js` is optional and it can be in
     // exit if any js file or template file is changed.
     // it is ok because this script encapsualated in a batch while(true);
     // so it runs again after it exits.
-    var autoexit_watch=require('autoexit').watch;
+    var autoexit_watch=require('./path/to/autorestart').watch;
     //
     var on_autoexit=function (filename) { } // if it returns false it means to ignore exit this time;  
     autoexit_watch(__dirname,".js", on_autoexit);
@@ -98,12 +98,12 @@ As i like it, I want it to crash on load errors and exit the application but not
 
 
 ### Edit nodejs.sh
-Edit `nodejs.sh` to match to your server.js filename.
+Edit `start.sh` to match to your server.js filename.
 
 
 ### To launch nodejs you type
     cd /var/www
-    ./nodejs.sh
+    ./start.sh
 
 ### To make it work with upstart  - make it run on boot
 Copy `nodejs.conf` to `/etc/init/`
