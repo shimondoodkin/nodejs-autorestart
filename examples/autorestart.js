@@ -28,7 +28,7 @@ sys.puts((new Date).toTimeString()+' Server running at http://127.0.0.1:8124/');
 // so it runs again after it exits.
 
 
-var autoexit_watch=require('autoexit').watch;
+var autoexit_watch=require('./../lib/autorestart').watch;
 var on_autoexit=function () { sys.puts('bye bye'); } 
 autoexit_watch(__dirname,".js", on_autoexit);
 //autoexit_watch(__dirname+"/templates",".html", on_autoexit);

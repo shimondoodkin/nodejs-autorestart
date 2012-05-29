@@ -14,13 +14,15 @@ while true;
   # echo "bla" > file.txt # replaces file
   # echo "bla" >> file.txt # appends to file
   #
-  /usr/local/bin/node server.js $* > /var/log/nodejs.log 2>&1;
+  # /usr/bin/env node autorestart.js $* > /var/log/nodejs.log 2>&1;
+
+  /usr/bin/env node autorestart.js $*
 
   exit_value="$?" ;
   echo stopping $(date);
    
   if [ "$exit_value" != "0" ]; then 
-   sleep 5;
+   sleep 1;
   else 
    sleep 0.5;
   fi ;
